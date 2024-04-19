@@ -6,6 +6,18 @@ import sys
 import gdspy
 import time
 
+# 功能：检查是否创建skill&gds文件夹，如果没有则创建文件夹
+def init_dir():  
+    output_dir_path = os.path.join(os.getcwd(), "output")    
+  
+    # 创建 skill 目录  
+    if not os.path.exists(output_dir_path):  
+        try:  
+            os.mkdir(output_dir_path)    
+        except Exception as exp:  
+            print("创建output文件夹失败，请检查权限")
+            return  
+        
 # 功能：根据输入表格信息加载模版
 class Load_Template():
     def __init__(self, name: str, value: dict):
@@ -160,6 +172,7 @@ if __name__ == '__main__':
        sys.exit(1)
 
     start_time = time.time()
+    init_dir()
     excel_path = sys.argv[1]
     data = load_excel(excel_path)
     print("导入表格成功")
