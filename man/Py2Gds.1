@@ -1,0 +1,59 @@
+.TH help "1" "Apr.2024" "Py2Gds使用说明" "Py2Gds使用说明"
+.SH 用途
+.TP
+支持excel输入多组信息，支持自定义模型模版，不通过virtuoso生成GDS版图文件
+.SH 指令
+.PP 
+.B 运行程序
+run.sh
+.SH 文件夹结构
+.PP
+.B templates 
+-------- 存放自定义结构模版
+.PP
+.B input 
+------- 存放输入参数的excel文件
+.PP
+.B output 
+-------- 存放输出的GDS版图文件
+.PP
+.B layermap 
+----------- 存放layermap文件
+.PP
+.B Py2Gds & calculate 
+----- Python源代码
+.PP
+.B man 
+---------------- 存放程序使用说明
+.PP
+.B run.sh 
+---- 执行Python程序的shell文件
+.SH excel文件格式
+.PP
+.B 第一行
+填写所需要输入的参数变量名
+.RS
+需要与templates模版文件一致
+.RE
+.B 其余行填入变量值
+.RS
+每行一组变量值生成GDS版图
+.RE
+.SH templates文件格式
+.PP
+.B templates文件按照json格式进行编写
+.PP
+.B 以下是json格式中的键和其值数据类型的介绍
+.PP
+.B parameter
+    需要用户输入的变量名，值：含有变量名字符串的列表
+.PP 
+.B expression
+    根据用户输入变量值进行计算的表达式，值：字典（键为函数名，值为字符串表达式）
+.B condition
+    版图生成算法中的循环语句，值：字典，值字典的键为条件判断字符串，其值为字典，字典中包含两个键，分别是"true","false"，字典的值是各自执行的算法，按照expression中格式书写  
+.B circulate  
+    版图生成算法中的循环变量，值：字典，字典的键是循环变量名，值为列表，格式为：[start,step,end]，均为字符串
+.B coordinate
+    版图坐标表示，值：列表，元素为含有六个元素的列表，分别是坐标中的(x1,y1)(x2,y2),layer,datatype
+    
